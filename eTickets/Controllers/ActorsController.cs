@@ -27,7 +27,7 @@ namespace eTickets.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Actor actor)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(actor);
             }
@@ -40,8 +40,27 @@ namespace eTickets.Controllers
         {
             var actorDetails = await _service.GetByIdAsync(id);
 
-            if (actorDetails == null) return View("Empty");
+            if (actorDetails == null) return View("NotFound");
             return View(actorDetails);
+        }
+
+        //Get: Actors/Create
+        public async Task<IActionResult> Edit(int id)
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+            if (actorDetails == null) return View("NotFound");
+            return View(actorDetails);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, Actor actor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(actor);
+            }
+            await _service.UpdateAsync(id, actor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
