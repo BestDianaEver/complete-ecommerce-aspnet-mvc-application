@@ -47,9 +47,11 @@ namespace eTickets.Data.Base
             return await query.FirstOrDefaultAsync(n =>n.Id == id);
         }
 
-        public Task<T> GetByNameAsync(int id, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> GetByNameAsync(int id, params Expression<Func<T, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+            query = includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return await query.FirstOrDefaultAsync(n => n.Id == id);
         }
 
         public async Task UpdateAsync(int id, T entity)
