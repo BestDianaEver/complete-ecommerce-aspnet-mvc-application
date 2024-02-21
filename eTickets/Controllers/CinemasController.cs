@@ -71,7 +71,7 @@ namespace eTickets.Controllers
         public async Task<IActionResult> DeleteConfirm(int id)
         {
             var cinemaDetails = await _service.GetByIdAsync(id);
-            if (cinemaDetails != null) return View("NotFound");
+            if (cinemaDetails == null) return View("NotFound");
 
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
