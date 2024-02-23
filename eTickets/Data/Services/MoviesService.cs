@@ -2,7 +2,6 @@
 using eTickets.Models;
 using eTickets.Data.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 namespace eTickets.Data.Services
 {
@@ -14,7 +13,7 @@ namespace eTickets.Data.Services
             _context = context;
         }
 
-        public async Task AddNewMovieASync(NewMovieVM data)
+        public async Task AddNewMovieAsync(NewMovieVM data)
         {
             var newMovie = new Movie()
             {
