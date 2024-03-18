@@ -57,6 +57,7 @@ app.UseAuthorization();
 
 // Seed database
 AppDbInitialiser.Seed(app);
+AppDbInitialiser.SeedUsersAndRolesAsync(app).Wait();
 
 app.MapControllerRoute(
     name: "default",
